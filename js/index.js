@@ -121,7 +121,7 @@ var ImageModule = function () {
 		}
 	}, {
 		key: "render",
-		value: function render(part, options) {
+		value: async function render(part, options) {
 			if (!part.type === "placeholder" || part.module !== moduleName) {
 				return null;
 			}
@@ -135,7 +135,7 @@ var ImageModule = function () {
 			}
 			
 			var imgManager = new ImgManager(this.zip, options.filePath, this.xmlDocuments, this.fileType);
-			var imgBuffer = this.options.getImage(tagValue, part.value);
+			var imgBuffer = await this.options.getImage(tagValue, part.value);
 			var rId = imgManager.addImageRels(this.getNextImageName(), imgBuffer);
 			var sizePixel = this.options.getSize(imgBuffer, tagValue, part.value);
 			return this.getRenderedPart(part, rId, sizePixel);
